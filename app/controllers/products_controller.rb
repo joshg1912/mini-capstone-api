@@ -13,4 +13,5 @@ class ProductsController < ApplicationController
     product = Product.last
     render json: product.as_json
   end
+  
 end
