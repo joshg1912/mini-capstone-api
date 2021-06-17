@@ -5,13 +5,18 @@ class ProductsController < ApplicationController
   end
 
   def all_method
-    product = Product.all
-    render json: product.as_json
+    products = Product.all
+    render json: products.as_json
   end
 
   def last_method
     product = Product.last
     render json: product.as_json
   end
-  
+
+  def id
+    input = params["id"]
+    product = Product.find_by(id: input)
+    render json: product.as_json
+  end
 end
