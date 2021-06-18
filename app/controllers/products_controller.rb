@@ -1,22 +1,42 @@
 class ProductsController < ApplicationController
-  def socks_method
-    product = Product.first
-    render json: product.as_json
-  end
-
-  def all_method
+  def index
     products = Product.all
     render json: products.as_json
   end
 
-  def last_method
-    product = Product.last
+  def show
+    input_value = params["id"]
+    product = Product.find(input_value)
     render json: product.as_json
   end
 
-  def id
-    input = params["id"]
-    product = Product.find_by(id: input)
+  def create
+    product = Product.new(
+      name: params["name"],
+      price: params["price"],
+      image_url: params["image_url"],
+      description: params["description"],
+    )
+    product.save
     render json: product.as_json
+  end
+
+  def update
+    product_id = params["id"]
+    product = Product.find(product_id)
+
+    product.name = params["name"] || product.name
+    product.price = params["price"] || product.price
+    product.image_url = params["image_url"] || product.image_url
+    product.description = params["description"] || product.description
+    product.save
+    render json: product.as_json
+  end
+
+  def destroy
+    product_id = params["id"]
+    product = Product.find(product_id)
+    product.destroy
+    render json: { message: "file deleted" }
   end
 end
