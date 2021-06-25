@@ -7,7 +7,7 @@ class ProductsController < ApplicationController
   def show
     input_value = params["id"]
     product = Product.find(input_value)
-    render json: product.as_json
+    render json: product
   end
 
   def create
@@ -16,9 +16,14 @@ class ProductsController < ApplicationController
       price: params["price"],
       image_url: params["image_url"],
       description: params["description"],
+      stock: params["stock"],
     )
-    product.save
-    render json: product.as_json
+    if product.save
+      render json: product
+    else
+      render json: { errors: product.errors.full_messages },
+             status: 418
+    end
   end
 
   def update
@@ -29,8 +34,13 @@ class ProductsController < ApplicationController
     product.price = params["price"] || product.price
     product.image_url = params["image_url"] || product.image_url
     product.description = params["description"] || product.description
-    product.save
-    render json: product.as_json
+    product.stock = params["stock"]
+    if product.save
+      render json: product
+    else
+      render json: { errors: product.errors.full_messages },
+             status: 418
+    end
   end
 
   def destroy

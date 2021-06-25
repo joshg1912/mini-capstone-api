@@ -5,4 +5,7 @@ Rails.application.routes.draw do
   post "products" => "products#create"
   patch "products/:id" => "products#update"
   delete "products/:id" => "products#destroy"
+  post "/suppliers" => "suppliers#create"
+  get "/suppliers" => "suppliers#index"
+  patch "/suppliers/:id" => "suppliers#update"
 end
