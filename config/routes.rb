@@ -8,4 +8,6 @@ Rails.application.routes.draw do
   post "/suppliers" => "suppliers#create"
   get "/suppliers" => "suppliers#index"
   patch "/suppliers/:id" => "suppliers#update"
+
+  post "/users" => "users#create"
 end
